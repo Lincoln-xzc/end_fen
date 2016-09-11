@@ -37,7 +37,7 @@ router.post('/user/register', function(req, res, next){
   "use strict";
   var user = req.body;
   console.log('user');
-  var insertSql = "insert into f_user ('id','token', 'username', 'password', 'create_time') values(?,?,?,?,?)";
+  var insertSql = "insert into f_user ('token', 'username', 'password', 'create_time') values(?,?,?,?)";
   var values = [];
   var token = Math.random(100);
   var create_time = new Date();
