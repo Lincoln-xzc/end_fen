@@ -7,7 +7,11 @@ var db = new DB();
 router.get('/user', function(req, res, next) {
   console.log('user');
 });
-
+/**
+ * user login
+ * @param username
+ * @param password
+ * */
 router.post('/user/login', function(req, res, next){
   "use strict";
   var user =  req.body;
@@ -21,12 +25,19 @@ router.post('/user/login', function(req, res, next){
     res.json(result);
   })
 });
-
-router.post('/user/add', function(req, res, next){
+/**
+ * user register
+ * @param id
+ * @param token
+ * @param username
+ * @param password
+ * @param create_time
+ * */
+router.post('/user/register', function(req, res, next){
   "use strict";
   var user = req.body;
   console.log('user');
-  var insertSql = "insert into f_username ('id','token', 'username', 'password', 'create_time') values(?,?,?,?,?)";
+  var insertSql = "insert into f_user ('id','token', 'username', 'password', 'create_time') values(?,?,?,?,?)";
   var values = [];
   var token = Math.random(100);
   var create_time = new Date();

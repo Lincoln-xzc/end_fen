@@ -116,5 +116,28 @@ Table.prototype.findByCondition = function(sql, value, callback){
         callback(res);
     })
 };
+//find
+Table.prototype.find = function(sql, callback){
+    "use strict";
+  if(!callback)
+    callback = function(){};
+  conn.query(sql, function(err, result){
+      var res = {};
+      if(err){
+          res = {
+              'Msg': err,
+              'success': false
+          }
+      } else {
+          res = {
+              'Msg': '查询成功',
+              'data': result,
+              'success': true
+          }
+      }
+      callback(res);
+  })
+
+};
 
 module.exports = Table;
