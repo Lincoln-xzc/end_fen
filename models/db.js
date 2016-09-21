@@ -23,9 +23,10 @@ Table.prototype.insert = function(sql, values, callback){
     if(!callback){
         callback = function(){};
     }
-    if(typeof  values['id'] == 'undefined' || values['id'] == null || values['id'] == ""){
-        values[id] = uuid.v1();
+    if(typeof  values['id'] == 'undefined' || values['id'] == undefined || values['id'] == null || values['id'] == ""){
+        values.unshift(uuid.v1());
     }
+    console.log(values);
 
     conn.query(sql, values, function(err, result){
         var res = {};

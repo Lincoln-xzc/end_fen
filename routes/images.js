@@ -2,14 +2,19 @@
  * Created by Htmler on 2016/9/9.
  */
 var express = require('express');
+var formidable = require('formidable');
+var path = require('path');
 var fs = require('fs');
+var url = require('url');
 var router = express.Router();
 var DB = require('../models/db.js');
 var db = new DB();
+var AVATAR_UPLOAD_FOLDER = '/upload/';
 
 router.get('/images', function(req, res, next){
     "use strict";
-   res.send('images');
+    var address = req.query.path;
+    fs.createReadStream(address).pipe(res);
 });
 /*
 * select images list
@@ -22,39 +27,80 @@ router.post('/images/list', function(req, res, next){
         res.json(result)
     })
 });
+
+
 /**
  * upload the images
  * @param id
 */
 router.post('/images/upload', function(req,res, next){
     "use strict";
-    var uploadSql = "insert into f_images ('name', 'url', 'size', 'upload_time', 'upload_name') values (?,?,?,?,?)";
+    var uploadSql = "insert into f_images (id, name, url, size, type, upload_time, upload_name) values (?,?,?,?,?,?,?)";
     var values = [];
-    var tmp_name = req.files.thumbnail.name;
-    var tmp_size = req.file.thumbnail.size;
-    var cur_date = new Date();
-    var upload_name = 'author';
-    //获得文件的临时路径
-    var tmp_path = req.files.thumbnail.path;
-    //指定文件上传后的目录-示列为'image'目录
-    var target_path = '../public/images/'+ req.files.thumbnail.name;
-    //移动文件
-    fs.rename(tmp_path, target_path, function(err){
-        if(err) throw err;
-        //删除临时文件夹文件
-        fs.unlink(tmp_path, function(){
-            if(err) throw err;
-            res.send('file uploaded to: '+ target_path+'-'+req.files.thumbnail.type);
-        })
+    var form = new formidable.IncomingForm();
+    form.uploadDir = path.join(__dirname, '..', 'public/upload/');
+    form.maxFieldsSize = 2 * 1024 * 1024;
+    form.keepExtensions = true;
+
+    form.parse(req, function(err, fields, file){
+        var filePath = '';
+        var fileSize ='';
+        var fileType = '';
+        if(file.tmpFile){
+            filePath = file.tmpFile.path;
+            fileSize = file.tmpFile.size;
+            fileType = file.tmpFile.type;
+        } else {
+            for(var key in file){
+                if(file[key].path && filePath === ''){
+                    filePath = file[key].path;
+                    fileSize = file[key].size;
+                    fileType = file[key].type;
+                    break;
+                }
+            }
+        }
+
+        var fileExt = filePath.substring(filePath.lastIndexOf('.'));
+        //文件移动的目录文件夹，不存在时创建目标文件夹
+        var targetDir = path.join(__dirname, '..', 'public/upload/');
+        if(!fs.existsSync(targetDir)){
+            fs.mkdir(targetDir);
+        }
+
+        //判断文件类型是否允许上传
+        if (('.jpg.jpeg.png.gif').indexOf(fileExt.toLowerCase()) === -1) {
+            var err = new Error('此文件类型不允许上传');
+            res.json({code:-1, message:'此文件类型不允许上传'});
+        } else {
+            var fileName = new Date().getTime() + fileExt;
+            var targetFile = form.uploadDir + fileName;
+
+            //移动文件
+            fs.rename(filePath, targetFile, function (err) {
+                if (err) {
+                    console.info(err);
+                    res.json({code:-1, message:'操作失败'});
+                } else {
+                    //上传成功，返回文件的相对路径
+                    //var fileUrl = '/end_fen/public/upload/'+ fileName;
+                    var cur_date = new Date();
+                    var upload_name = 'author';
+                    values.push(fileName);
+                    values.push(targetFile);
+                    values.push(fileSize);
+                    values.push(fileType);
+                    values.push(cur_date);
+                    values.push(upload_name);
+                    db.insert(uploadSql, values, function(result){
+                    res.json(result);
+                    })
+                }
+            });
+        }
     });
-    values.add(tmp_name);
-    values.add(target_path);
-    values.add(tmp_size);
-    values.add(cur_date);
-    values.add(upload_name);
-    db.insert(uploadSql, values, function(result){
-        res.json(result);
-    })
+
+
 });
 
 /**
