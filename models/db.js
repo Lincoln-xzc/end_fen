@@ -19,15 +19,12 @@ function Table(sql, util, fields, values){
 
 Table.prototype.insert = function(sql, values, callback){
     "use strict";
-    console.log('连接成功');
     if(!callback){
         callback = function(){};
     }
     if(typeof  values['id'] == 'undefined' || values['id'] == undefined || values['id'] == null || values['id'] == ""){
         values.unshift(uuid.v1());
     }
-    console.log(values);
-
     conn.query(sql, values, function(err, result){
         var res = {};
         if(err){
@@ -71,11 +68,12 @@ Table.prototype.delete = function(sql, id, callback){
 };
 
 //update
-Table.prototype.update = function(sql, value, callback){
+Table.prototype.update = function(sql, values, callback){
     "use strict";
     if(!callback)
         callback = function(){};
-    conn.query(sql+conn.escape(value.id), function(err, result){
+    console.log(values);
+    conn.query(sql, values, function(err, result){
         var res = {};
         if(err){
             res = {

@@ -98,6 +98,7 @@ router.post('/user/register', function(req, res, next){
   values.push(user.password);
   values.push(create_time);
   db.insert(insertSql, values, function(result){
+    console.log(result);
     res.json(result);
   })
 });

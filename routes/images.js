@@ -146,13 +146,11 @@ router.post('/images/update',function(req, res, next){
     var values = [];
     var update_name = 'author';
     var update_time = new Date();
-    var updateSql = "update f_images set name=?, url=?, size=?, update_time=?, update_name=?  where id= ?";
-    values.add(data.id);
+    var updateSql = "update f_images set name=?, update_name, update_time where id= ?";
     values.add(data.name);
-    values.add(data.url);
-    values.add(data.size);
-    values.add(update_time);
     values.add(update_name);
+    values.add(update_time);
+    values.add(data.id);
     db.update(updateSql, values, function(result){
         res.json(result);
     })
