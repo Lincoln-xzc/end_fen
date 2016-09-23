@@ -72,7 +72,6 @@ Table.prototype.update = function(sql, values, callback){
     "use strict";
     if(!callback)
         callback = function(){};
-    console.log(values);
     conn.query(sql, values, function(err, result){
         var res = {};
         if(err){

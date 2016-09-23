@@ -27,8 +27,6 @@ router.post('/images/list', function(req, res, next){
         res.json(result)
     })
 });
-
-
 /**
  * upload the images
  * @param id
@@ -102,7 +100,6 @@ router.post('/images/upload', function(req,res, next){
 
 
 });
-
 /**
  * delete images
  * @param id
@@ -146,12 +143,13 @@ router.post('/images/update',function(req, res, next){
     var values = [];
     var update_name = 'author';
     var update_time = new Date();
-    var updateSql = "update f_images set name=?, update_name, update_time where id= ?";
-    values.add(data.name);
-    values.add(update_name);
-    values.add(update_time);
-    values.add(data.id);
+    var updateSql = "update f_images set name=?, update_time=?, update_name=?where id= ?";
+    values.push(data.name);
+    values.push(update_time);
+    values.push(update_name);
+    values.push(data.id);
     db.update(updateSql, values, function(result){
+        console.log(result);
         res.json(result);
     })
 });

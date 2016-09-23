@@ -27,15 +27,15 @@ router.get('/article', function(req,res, next) {
  * */
 router.post('/article/add', function(req, res, next){
     "use strict";
-    var addSql = "insert into f_contents ('title', 'content', 'create_time', 'create_name') values (?,?,?,?)";
+    var addSql = "insert into f_contents (id, title, content, create_time, create_name) values (?,?,?,?,?)";
     var data = req.body;
     var values = [];
     var create_time = new Date();
     var create_name = 'author';
-    values.add(data.title);
-    values.add(data.content);
-    values.add(create_time);
-    values.add(create_name);
+    values.push(data.title);
+    values.push(data.content);
+    values.push(create_time);
+    values.push(create_name);
     db.insert(addSql, values, function(result){
         res.json(result);
     })
