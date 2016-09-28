@@ -49,9 +49,9 @@ router.post('/article/add', function(req, res, next){
  * */
 router.post('/article/delete/:id', function(req, res, next){
     "use strict";
-    var deleteSql = 'delete * from f_contents where id = ?';
-    var id = req.href.search.id;
-    db.delete(deleteSql, id, function(result){
+    var deleteSql = 'delete from f_contents where id = ?';
+    var value = [req.params.id];
+    db.delete(deleteSql, value, function(result){
         res.json(result);
     })
 });
@@ -79,7 +79,7 @@ router.post('/article/findById', function(req, res, next){
     var selectSql = 'select * from f_contents where id = ?';
     var data = req.body;
     var values = [];
-    values.add(data.id);
+    values.push(data.id);
     db.findByCondition(selectSql, values, function(result){
         res.json(result);
     })

@@ -107,9 +107,10 @@ router.post('/images/upload', function(req,res, next){
  * **/
 router.post('/images/delete/:id', function(req,res, next){
     "use strict";
-    var id = req.search.href.id;
-    var deleteSql = 'delete * from f_images where id = ?';
-    db.delete(deleteSql,id, function(result){
+    var values = [];
+    values.push(req.params.id);
+    var deleteSql = "delete from f_images where id = ?";
+    db.delete(deleteSql, values, function(result){
         res.json(result);
     });
 });
@@ -131,7 +132,7 @@ router.post('/images/detail/:id', function(req, res, next){
     "use strict";
     var id = req.search.href.id;
     var values = [];
-    values.add(id);
+    values.push(id);
     var detailSql = 'select * from f_images where id = ?';
     db.findByCondition(detailSql, values, function(result){
         res.json(result);
