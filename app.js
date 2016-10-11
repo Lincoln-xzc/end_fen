@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var ejs = require('ejs');
 
 //var routes = require('./routes/index');
 //var users = require('./routes/users');
@@ -18,6 +19,9 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+/*app.engine('.html', ejs.__express);
+app.set('view engine', 'html');*/
+
 app.set('routes', __dirname + '/routes/');
 
 // uncomment after placing your favicon in /public
@@ -45,7 +49,7 @@ app.use(cors());
 fs.readdirSync(routes).forEach(function(filename){
   var filePath = routes + filename;
   var routeName = filename.substr(0, filename.lastIndexOf('.'));
-
+  console.log('filePath'+filePath);
   if(!fs.lstatSync(filePath).isDirectory()){
     app.use('/api', require(filePath));
   }

@@ -5,10 +5,10 @@ var db = new DB();
 
 /* GET users listing. */
 router.get('/user', function(req, res, next) {
-  console.log('user');
+  res.render('user', { title: 'Login' });
 });
 /**
- * user login
+ * user login.ejs
  * @param username
  * @param password
  * */
