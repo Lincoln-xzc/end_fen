@@ -27,8 +27,6 @@ router.post('/images/list', function(req, res, next){
         res.json(result)
     })
 });
-
-
 /**
  * upload the images
  * @param id
@@ -75,11 +73,11 @@ router.post('/images/upload', function(req,res, next){
         } else {
             var fileName = new Date().getTime() + fileExt;
             var targetFile = form.uploadDir + fileName;
+            console.log(targetFile);
 
             //移动文件
             fs.rename(filePath, targetFile, function (err) {
                 if (err) {
-                    console.info(err);
                     res.json({code:-1, message:'操作失败'});
                 } else {
                     //上传成功，返回文件的相对路径
@@ -102,7 +100,6 @@ router.post('/images/upload', function(req,res, next){
 
 
 });
-
 /**
  * delete images
  * @param id
@@ -110,9 +107,10 @@ router.post('/images/upload', function(req,res, next){
  * **/
 router.post('/images/delete/:id', function(req,res, next){
     "use strict";
-    var id = req.search.href.id;
-    var deleteSql = 'delete * from f_images where id = ?';
-    db.delete(deleteSql,id, function(result){
+    var values = [];
+    values.push(req.params.id);
+    var deleteSql = "delete from f_images where id = ?";
+    db.delete(deleteSql, values, function(result){
         res.json(result);
     });
 });
@@ -134,7 +132,7 @@ router.post('/images/detail/:id', function(req, res, next){
     "use strict";
     var id = req.search.href.id;
     var values = [];
-    values.add(id);
+    values.push(id);
     var detailSql = 'select * from f_images where id = ?';
     db.findByCondition(detailSql, values, function(result){
         res.json(result);
@@ -146,12 +144,15 @@ router.post('/images/update',function(req, res, next){
     var values = [];
     var update_name = 'author';
     var update_time = new Date();
-    var updateSql = "update f_images set name = ?, update_name = ?, update_time = ? where id= ?";
-    values.add(data.name);
-    values.add(update_name);
-    values.add(update_time);
-    values.add(data.id);
+
+    var updateSql = "update f_images set name=?, update_time=?, update_name=?where id= ?";
+    values.push(data.name);
+    values.push(update_time);
+    values.push(update_name);
+    values.push(data.id);
+
     db.update(updateSql, values, function(result){
+        console.log(result);
         res.json(result);
     })
 });

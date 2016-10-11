@@ -30,7 +30,7 @@ Table.prototype.insert = function(sql, values, callback){
         if(err){
             console.log(err);
             res = {
-                'Msg': err,
+                'msg': err,
                 'success': false
             }
         } else {
@@ -45,15 +45,15 @@ Table.prototype.insert = function(sql, values, callback){
 };
 
 //delete
-Table.prototype.delete = function(sql, id, callback){
+Table.prototype.delete = function(sql, values, callback){
     "use strict";
     if(!callback)
         callback = function(){};
-    conn.query(sql, id, function(err, result){
+    conn.query(sql, values,function(err, result){
         var res = {};
         if(err){
             res = {
-                'Msg': err,
+                'msg': err,
                 'success': false
             }
         } else {
@@ -72,12 +72,11 @@ Table.prototype.update = function(sql, values, callback){
     "use strict";
     if(!callback)
         callback = function(){};
-    console.log(values);
     conn.query(sql, values, function(err, result){
         var res = {};
         if(err){
             res = {
-                'Msg': err,
+                'msg': err,
                 'success': false
             }
         } else {
@@ -101,13 +100,13 @@ Table.prototype.findByCondition = function(sql, value, callback){
         var res = {};
         if(err){
             res = {
-                'Msg': err,
+                'msg': err,
                 'success': false
             }
         } else {
             console.log(result);
             res = {
-                'Msg': '查询成功',
+                'msg': '查询成功',
                 'data': result,
                 'success': true
             }
@@ -124,12 +123,12 @@ Table.prototype.find = function(sql, callback){
       var res = {};
       if(err){
           res = {
-              'Msg': err,
+              'msg': err,
               'success': false
           }
       } else {
           res = {
-              'Msg': '查询成功',
+              'msg': '查询成功',
               'data': result,
               'success': true
           }
