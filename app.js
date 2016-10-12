@@ -47,9 +47,10 @@ app.use(session({
 var routes = app.get('routes');
 app.use(cors());
 fs.readdirSync(routes).forEach(function(filename){
+  console.log(routes);
+  console.log(filename);
   var filePath = routes + filename;
   var routeName = filename.substr(0, filename.lastIndexOf('.'));
-  console.log('filePath'+filePath);
   if(!fs.lstatSync(filePath).isDirectory()){
     app.use('/api', require(filePath));
   }

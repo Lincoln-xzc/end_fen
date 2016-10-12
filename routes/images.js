@@ -20,13 +20,20 @@ router.get('/images', function(req, res, next){
 * select images list
 *
 * **/
-router.post('/images/list', function(req, res, next){
+router.get('/images/listImage', function(req, res, next){
     "use strict";
     var listSql = 'select * from f_images';
     db.find(listSql, function(result){
-        res.json(result)
+        //res.json(result)
+        res.render('listImage', {'title': '图片列表','result':result});
     })
 });
+
+router.get('/images/upload', function(req, res, next){
+    "use strict";
+    res.render('upload', { title: '图片上传' });
+});
+
 /**
  * upload the images
  * @param id

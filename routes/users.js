@@ -4,9 +4,10 @@ var DB = require('../models/db.js');
 var db = new DB();
 
 /* GET users listing. */
-router.get('/user', function(req, res, next) {
-  res.render('user', { title: 'Login' });
+router.get('/users/addUser', function(req, res, next) {
+  res.render('users', { title: 'Login' });
 });
+
 /**
  * user login.ejs
  * @param username
@@ -31,11 +32,13 @@ router.post('/user/login', function(req, res, next){
  * @api /user/list
  * @method post
  * */
-router.post('/user/list', function(req, res, next){
+router.get('/users', function(req, res, next){
   "use strict";
   var listSql = 'select * from f_user';
   db.find(listSql, function(result){
-    res.json(result);
+    //res.json(result);
+    console.log(result.data);
+    res.render('users',{'title':'个人中心',Users: result.data})
   })
 });
 

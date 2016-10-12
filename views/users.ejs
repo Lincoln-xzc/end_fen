@@ -25,12 +25,12 @@
 
                     <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                     <h3 class="page-title">
-                        �û����� <small>user center</small>
+                        用户中心 <small>user center</small>
                     </h3>
                     <ul class="breadcrumb">
                         <li>
                             <i class="icon-home"></i>
-                            <a href="index.ejs">Home</a>
+                            <a href="index.ejs">个人中心</a>
                             <i class="icon-angle-right"></i>
                         </li>
                         <li><a href="#">User</a></li>
@@ -39,12 +39,34 @@
                 </div>
             </div>
             <!-- END PAGE HEADER-->
-            <div id="dashboard">
+            <div class="row-fluid">
                 <!-- BEGIN DASHBOARD STATS -->
-
-                <!-- END PORTLET-->
-
-
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>用户名</th>
+                        <th>密码</th>
+                        <th class="hidden-480">创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                   
+                    <%for(var user in Users){ %>
+                        <tr>
+                            <td>1</td>
+                            <td><%=user.username%></td>
+                            <td><%=user.password%></td>
+                            <td class="hidden-480"><%=user.create_time%></td>
+                            <td>
+                                <button type="button" class="btn red">删除</button>
+                                <button type="button" class="btn blue">更新</button>
+                            </td>
+                        </tr>
+                    <%}%>
+                    </tbody>
+                </table>
             </div>
         </div>
         <!-- END PAGE CONTAINER-->

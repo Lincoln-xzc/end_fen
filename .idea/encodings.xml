@@ -17,18 +17,9 @@
     <file url="file://$PROJECT_DIR$/public/image/amazon.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/animated-overlay.gif" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/avatar.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/avatar.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/avatar1.jpg" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/avatar1.jpg" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/avatar1.jpg" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/avatar1.jpg" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/avatar1_small.jpg" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/avatar1_small.jpg" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/avatar1_small.jpg" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/avatar2.jpg" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/avatar2.jpg" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/avatar3.jpg" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/avatar3.jpg" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/avatar3.jpg" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/behance.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/bg" charset="UTF-8" />
@@ -53,12 +44,8 @@
     <file url="file://$PROJECT_DIR$/public/image/fancybox_sprite.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/favicon.ico" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/fontawesome-webfont.eot" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/fontawesome-webfont.eot" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/fontawesome-webfont.svg" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/fontawesome-webfont.svg" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/fontawesome-webfont.ttf" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/fontawesome-webfont.ttf" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/fontawesome-webfont.woff" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/fontawesome-webfont.woff" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/forrst.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/github.png" charset="UTF-8" />
@@ -87,8 +74,6 @@
     <file url="file://$PROJECT_DIR$/public/image/hor-menu-search.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/hue.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/icon-color-close.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/icon-color-close.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/icon-color.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/icon-color.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/icon-img-down.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/icon-img-up.png" charset="UTF-8" />
@@ -114,13 +99,10 @@
     <file url="file://$PROJECT_DIR$/public/image/linkedin.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/loading.gif" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/logo-big.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/logo-big.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/logo.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/logo.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/logo_azteca.jpg" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/logo_conquer.jpg" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/logo_metronic.jpg" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/menu-toggler.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/menu-toggler.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/overlay-icon.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/photo1.jpg" charset="UTF-8" />
@@ -164,14 +146,11 @@
     <file url="file://$PROJECT_DIR$/public/image/rss.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/saturation.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/search-icon.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/search-icon.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/select2-spinner.gif" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/select2.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/select2x2.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/sidebar-menu-arrow.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/sidebar-menu-arrow.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/sidebar-search-close.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/sidebar-toggler.jpg" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/sidebar-toggler.jpg" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/skype.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/social_facebook.png" charset="UTF-8" />
@@ -191,8 +170,6 @@
     <file url="file://$PROJECT_DIR$/public/image/stumbleupon.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/switch.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/syncfusion-icons-white.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/syncfusion-icons-white.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/public/image/syncfusion-icons.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/syncfusion-icons.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/tumblr.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/image/twitter.png" charset="UTF-8" />
@@ -392,7 +369,14 @@
     <file url="file://$PROJECT_DIR$/routes/images.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/routes/main.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/routes/users.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/addArticle.ejs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/addMain.ejs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/views/footer.ejs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/listArticle.ejs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/listImage.ejs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/listMain.ejs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/views/menu.ejs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/upload.ejs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/users.ejs" charset="UTF-8" />
   </component>
 </project>

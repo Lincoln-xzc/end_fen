@@ -4,10 +4,10 @@
 var express = require('express');
 var router = express.Router();
 var DB = require('../models/db.js');
-
-router.get('/main', function(req, res, next){
+var db = new DB();
+router.get('/main/addMain', function(req, res, next){
     "use strict";
-   res.send('main');
+   res.render('addMain', {'title':'内容列表'});
 });
 
 router.post('/main/add', function(req, res, next){
@@ -51,11 +51,12 @@ router.post('/main/update', function(req, res, next){
         res.json(result);
     })
 });
-router.post('/main/list', function(req, res, next){
+router.get('/main/listMain', function(req, res, next){
     "use strict";
     var listSql = 'select * from f_main';
     db.find(listSql, function(result){
-        res.json(result);
+       // res.json(result);
+        res.render('listMain',{'title':'图文设置','result': result})
     })
 });
 router.post('/main/detail/:id', function(req, res, next){

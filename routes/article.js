@@ -15,7 +15,10 @@ router.get('/article', function(req,res, next) {
     "use strict";
    res.json('fuck');
 });
-
+router.get('/article/addArticle', function(req, res, next){
+    "use strict";
+    res.render('addArticle', { title: '新增文字' });
+})
 /**
  * @api /aritcle/add
  * @method post
@@ -60,11 +63,12 @@ router.post('/article/delete/:id', function(req, res, next){
  * @api : /article/list
  * @method: post
  * */
-router.post('/article/list', function(req,res, next){
+router.get('/article/listArticle', function(req,res, next){
     "use strict";
     var selectSql = 'select * from f_contents';
     db.find(selectSql, function(result){
-        res.json(result);
+        //res.json(result);
+        res.render('listArticle', {'title':'文字列表','result': result});
     })
 });
 
