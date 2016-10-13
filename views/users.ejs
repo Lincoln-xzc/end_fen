@@ -52,26 +52,73 @@
                     </tr>
                     </thead>
                     <tbody>
-                   
-                    <%for(var user in Users){ %>
+
+                    <%for(var i=0; i< Users.length; i++){ %>
                         <tr>
-                            <td>1</td>
-                            <td><%=user.username%></td>
-                            <td><%=user.password%></td>
-                            <td class="hidden-480"><%=user.create_time%></td>
+                            <td><%= i%></td>
+                            <td><%=Users[i].username%></td>
+                            <td><%=Users[i].password%></td>
+                            <td class="hidden-480"><%=Users[i].create_time%></td>
                             <td>
-                                <button type="button" class="btn red">删除</button>
-                                <button type="button" class="btn blue">更新</button>
+                                <a type="button" class="btn red" onclick="deleteUser('<%=Users[i].id%>')">删除</a>
+                                <button type="button" class="btn blue" data-toggle="modal" data-target="#myModal" onclick="updateUser('<%=JSON.stringify(Users[i])%>')">更新</button>
                             </td>
                         </tr>
                     <%}%>
                     </tbody>
                 </table>
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">更新用户信息</h4>
+                            </div>
+                            <form action="/api/users/update" method="post" class="form-horizontal">
+                                <div class="modal-body">
+                                    <div class="control-group" hidden>
+                                        <label class="control-label" style="margin-right: 10px;">用户名</label>
+                                        <input type="text" name="id" id="userid" class="m-wrap medium" >
+                                        <span class="help-inline"></span>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" style="margin-right: 10px;">用户名</label>
+                                        <input type="text" id="username" name="username" placeholder="请输入用户名" class="m-wrap medium" >
+                                        <span class="help-inline"></span>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" style="margin-right: 10px;">密码</label>
+                                        <input type="text" id="password" name="password" placeholder="请输入密码" class="m-wrap medium">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                    <button type="submit" class="btn blue">更新</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- END PAGE CONTAINER-->
     </div>
     <!-- END PAGE -->
 </div>
+    <script>
+        function deleteUser(id){
+            $.post('http://localhost:3000/api/users/delete/'+id).success(function(data){
+                layer.msg('删除成功');
+                window.location.reload();
+            }).error(function(err){
+                layer.msg('删除失败');
+            })
+        }
+        function updateUser(obj){
+            var user = JSON.parse(obj);
+            $('#userid').val(user.id);
+            $('#username').val(user.username);
+            $('#password').val(user.password);
 
+        }
+    </script>
 <%include footer.ejs%>

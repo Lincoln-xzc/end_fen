@@ -1,6 +1,4 @@
 <%include header.ejs%>
-
-
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
     <%include menu.ejs%>
@@ -25,12 +23,12 @@
 
                     <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                     <h3 class="page-title">
-                        �û����� <small>statistics and more</small>
+                        用户中心 <small>statistics and more</small>
                     </h3>
                     <ul class="breadcrumb">
                         <li>
                             <i class="icon-home"></i>
-                            <a href="index.ejs">�����û�</a>
+                            <a href="/api/users/addUser">新增用户</a>
                             <i class="icon-angle-right"></i>
                         </li>
                         <li><a href="#">addUser</a></li>
@@ -40,11 +38,20 @@
             </div>
             <!-- END PAGE HEADER-->
             <div id="dashboard">
-                <!-- BEGIN DASHBOARD STATS -->
-
-                <!-- END PORTLET-->
-
-
+                <form action="/api/users/register" method="post" class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label" style="margin-right: 10px;">用户名</label>
+                        <input type="text" name="username" placeholder="请输入用户名" class="m-wrap medium">
+                        <span class="help-inline"></span>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" style="margin-right: 10px;">密码</label>
+                        <input type="text" name="password" placeholder="请输入密码" class="m-wrap medium">
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn blue" type="submit">添加</button>
+                    </div>
+                </form>
             </div>
         </div>
         <!-- END PAGE CONTAINER-->

@@ -371,6 +371,7 @@
     <file url="file://$PROJECT_DIR$/routes/users.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/views/addArticle.ejs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/views/addMain.ejs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/addUser.ejs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/views/footer.ejs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/views/listArticle.ejs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/views/listImage.ejs" charset="UTF-8" />

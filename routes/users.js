@@ -5,7 +5,7 @@ var db = new DB();
 
 /* GET users listing. */
 router.get('/users/addUser', function(req, res, next) {
-  res.render('users', { title: 'Login' });
+  res.render('addUser', { title: 'Register' });
 });
 
 /**
@@ -37,7 +37,6 @@ router.get('/users', function(req, res, next){
   var listSql = 'select * from f_user';
   db.find(listSql, function(result){
     //res.json(result);
-    console.log(result.data);
     res.render('users',{'title':'个人中心',Users: result.data})
   })
 });
@@ -47,10 +46,10 @@ router.get('/users', function(req, res, next){
  * @method post
  * @param id
  * */
-router.post('/user/delete/:id', function(req, res, next){
+router.post('/users/delete/:id', function(req, res, next){
   "use strict";
-  var id = req.href.search.id;
-  var delSql = 'delete * from f_user where id = ?';
+  var id = req.params.id;
+  var delSql = 'delete from f_user where id = ?';
   db.delete(delSql, id, function (result) {
     res.json(result);
   })
@@ -65,19 +64,21 @@ router.post('/user/delete/:id', function(req, res, next){
  *@param update_name
  *
  * */
-router.post('/user/update', function(req, res, next){
+router.post('/users/update', function(req, res, next){
   "use strict";
   var user = req.body;
-  var upSql = 'update f_user set username=?, password=?, update_time=?, update_name=? where id=?';
-  var update_time = new Date();
-  var update_name = 'author';
+  var upSql = 'update f_user set username=?, password=? where id=?';
   var values =[];
-  values.add(user.username);
-  values.add(user.password);
-  values.add(update_time);
-  values.add(update_name);
+  values.push(user.username);
+  values.push(user.password);
+  values.push(user.id);
   db.update(upSql, values, function(result){
-    res.json(result);
+    if(result.success){
+      res.redirect('/api/users')
+    } else {
+      layer.msg('更新失败');
+    }
+
   })
 });
 
@@ -89,7 +90,7 @@ router.post('/user/update', function(req, res, next){
  * @param password
  * @param create_time
  * */
-router.post('/user/register', function(req, res, next){
+router.post('/users/register', function(req, res, next){
   "use strict";
   var user = req.body;
   var insertSql = "insert into f_user(id, token, username, password, create_time) values(?,?,?,?,?)";
@@ -101,8 +102,12 @@ router.post('/user/register', function(req, res, next){
   values.push(user.password);
   values.push(create_time);
   db.insert(insertSql, values, function(result){
-    console.log(result);
-    res.json(result);
+    if(result.success){
+      res.redirect('/api/users');
+    }
+    else {
+      res.redirect('/api/addUser')
+    }
   })
 });
 
