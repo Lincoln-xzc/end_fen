@@ -40,11 +40,36 @@
             </div>
             <!-- END PAGE HEADER-->
             <div id="dashboard">
-                <!-- BEGIN DASHBOARD STATS -->
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>图片</th>
+                        <th>图片名</th>
+                        <th>类型</th>
+                        <th>大小</th>
+                        <th>上传时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
-                <!-- END PORTLET-->
-
-
+                    <%for(var i=0; i< Images.length; i++){ %>
+                    <tr>
+                        <td><%= i%></td>
+                        <td><img src="http://localhost:3000/api/images?path=<%=Images[i].url%>" alt="photo" style="width: 60px;height: 40px;"></td>
+                        <td><%=Images[i].name%></td>
+                        <td><%=Images[i].type%></td>
+                        <td><%=Images[i].size%></td>
+                        <td><%=Images[i].upload_time%></td>
+                        <td>
+                            <a type="button" class="btn red" onclick="deleteImage('<%=Images[i].id%>')">删除</a>
+                            <button type="button" class="btn blue" data-toggle="modal" data-target="#myModal" onclick="updateImage('<%=JSON.stringify(Images[i])%>')">更新</button>
+                        </td>
+                    </tr>
+                    <%}%>
+                    </tbody>
+                </table>
             </div>
         </div>
         <!-- END PAGE CONTAINER-->

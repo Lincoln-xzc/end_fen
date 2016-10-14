@@ -25,7 +25,7 @@ router.get('/images/listImage', function(req, res, next){
     var listSql = 'select * from f_images';
     db.find(listSql, function(result){
         //res.json(result)
-        res.render('listImage', {'title': '图片列表','result':result});
+        res.render('listImage', {'title': '图片列表',Images: result.data});
     })
 });
 
