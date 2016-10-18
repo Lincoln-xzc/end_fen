@@ -1,0 +1,161 @@
+<%include header.ejs%>
+
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <%include menu.ejs%>
+    <!-- BEGIN PAGE -->
+    <div class="page-content">
+        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <div id="portlet-config" class="modal hide">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"></button>
+                <h3>Widget Settings</h3>
+            </div>
+            <div class="modal-body">
+                Widget settings form goes here
+            </div>
+        </div>
+        <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <!-- BEGIN PAGE CONTAINER-->
+        <div class="container-fluid">
+            <!-- BEGIN PAGE HEADER-->
+            <div class="row-fluid">
+                <div class="span12">
+
+                    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                    <h3 class="page-title">
+                         list<small>statistics and more</small>
+                    </h3>
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="index.ejs">list</a>
+                            <i class="icon-angle-right"></i>
+                        </li>
+                        <li><a href="#">image_list</a></li>
+                    </ul>
+                    <!-- END PAGE TITLE & BREADCRUMB-->
+                </div>
+            </div>
+            <!-- END PAGE HEADER-->
+            <div id="dashboard">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>图片名</th>
+                        <th>图片</th>
+                        <th>标题</th>
+                        <th style="text-align: center;">内容</th>
+                        <th>类别</th>
+                        <th>分类</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                       <% for(var i=0;i< Lists.length; i++){ %>
+                            <tr>
+                                <td><%= i +1%></td>
+                                <td><%= Lists[i].name%></td>
+                                <td><img src="http://localhost:3000/api/images?path=<%= Lists[i].url%>" style="width: 100px;height: 60px;"></td>
+                                <td><%= Lists[i].title%></td>
+                                <td style="width: 30%;"><%= Lists[i].content%></td>
+                                <td><%= Lists[i].remark%></td>
+                                <td><%= Lists[i].tip%></td>
+                                <td>
+                                    <button class="btn red" onclick="deleteList('<%=Lists[i].id%>')">删除</button>
+                                    <button class="btn blue"  data-toggle="modal" data-target="#myModal" onclick="updateList('<%=Lists[i].id%>')">更新</button>
+                                </td>
+                            </tr>
+                       <%}%>
+                    </tbody>
+                </table>
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">更新图文信息</h4>
+                            </div>
+                            <form class="form-inline" action="/api/list/update" method="post">
+                                <div class="modal-body">
+                                    <div class="form-group" hidden>
+                                        <input type="text" name="id" id="id">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom:20px;">
+                                        <label>名称</label>
+                                        <input type="text" name="name" class="form-control" id="name" disabled />
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 20px;">
+                                        <label>图片</label>
+                                        <img  alt="photo" id="imageId" style="width: 100px;height: 100px;border: 2px solid #bbb;">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 20px;">
+                                        <label class="">标题</label>
+                                        <input type="text" name="title" id="title" class="form-control" disabled/>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 20px;">
+                                        <label class="">类别</label>
+                                        <input type="text" name="remark" id="remark" class="form-control" readonly>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 20px">
+                                        <label class="">标记</label>
+                                        <select class="form-control" name="tip">
+                                            <option value="carousel">首页轮播</option>
+                                            <option value="cultural">首页文化</option>
+                                            <option value="center">首页中心</option>
+                                            <option value="message">首页动态</option>
+                                            <option value="short">企业简介</option>
+                                            <option value="honor">企业荣誉</option>
+                                            <option value="culture">企业文化</option>
+                                            <option value="show">产品展示</option>
+                                            <option value="dynamic">企业动态</option>
+                                            <option value="news">行业消息</option>
+                                            <option value="process">加工过程</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 10px;">
+                                        <label class="">内容</label>
+                                        <textarea id="content" name="content" class="form-control" disabled></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button class="btn blue" type="submit">提交</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTAINER-->
+    </div>
+    <!-- END PAGE -->
+</div>
+    <script type="text/javascript">
+        function deleteList(id){
+            $.post('http://localhost:3000/api/article/delete/'+id).success(function(response){
+                layer.msg('删除成功');
+                window.location.reload();
+            }).error(function(err){
+                layer.msg('删除失败');
+            });
+        }
+
+        function updateList(id){
+            $.post('http://localhost:3000/api/list/findById/'+id).success(function(response){
+                if(response.success){
+                    var List = response.data[0];
+                    console.log(List);
+                    $('#id').val(id);
+                    $('#name').val(List.name);
+                    $("#imageId").attr('src', 'http://localhost:3000/api/images?path='+List.url);
+                    $("#title").val(List.title);
+                    $('#remark').val(List.remark);
+                    $("#content").html(List.content);
+                }
+            })
+        }
+    </script>
+<%include footer.ejs%>

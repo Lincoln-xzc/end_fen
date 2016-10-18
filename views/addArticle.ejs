@@ -40,10 +40,38 @@
             </div>
             <!-- END PAGE HEADER-->
             <div id="dashboard">
-                <!-- BEGIN DASHBOARD STATS -->
-
-                <!-- END PORTLET-->
-
+                <form class="form-inline" action="/api/article/add" method="post">
+                    <div class="form-group" style="margin-bottom:20px;">
+                        <label>名称</label>
+                        <select class="form-control" onchange="getImageId(this.options[this.options.selectedIndex].value)" name="imageId" id="selectImg">
+                            <% for(var i = 0; i < Images.length; i++){%>
+                                <option value="<%=Images[i].id%>"><%=Images[i].name%></option>
+                            <%}%>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label>图片</label>
+                        <img  alt="photo" id="imageId" style="width: 100px;height: 100px;border: 2px solid #bbb;" />
+                    </div>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label class="">标题</label>
+                        <input type="text" class="form-control" name="title" placeholder="请输入内容标题" />
+                    </div>
+                    <div class="form-group" style="height: 100%;">
+                        <script id="container" name="content" type="text/plain">
+                        </script>
+                    </div>
+                    <div class="form-group" style="margin-top: 10px;">
+                        <select class="form-control" name="remark">
+                            <option value="home">首页管理</option>
+                            <option value="introduction">企业实力</option>
+                            <option value="center">产品中心</option>
+                            <option value="cultural">企业动态</option>
+                            <option value="product">生产流程</option>
+                        </select>
+                    </div>
+                    <button class="btn blue" type="submit" style="margin-top: 10px;">提交</button>
+                </form>
 
             </div>
         </div>
@@ -51,5 +79,15 @@
     </div>
     <!-- END PAGE -->
 </div>
-
+<script type="text/javascript">
+    $("#eduil_iframeholder").css("height",'260px');
+    function getImageId (id){
+        $.post('http://localhost:3000/api/images/findById',{'id':id}).success(function(response){
+            var url = response.data[0].url;
+            $("#imageId").attr('src',"http://localhost:3000/api/images?path="+url);
+        }).error(function(err){
+            console.log(err);
+        })
+    }
+</script>
 <%include footer.ejs%>

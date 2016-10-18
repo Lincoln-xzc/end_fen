@@ -128,16 +128,28 @@ router.post('/images/delete/:id', function(req,res, next){
 router.post('/images/selected', function(req, res, next){
     "use strict";
     var data = req.body;
-    var selectSql = 'select * f_images where name = ?';
+    var selectSql = 'select * from f_images where name = ?';
     var values = [];
     values.add(data.name);
     db.findByCondition(selectSql, values, function(result){
         res.json(result);
     });
 });
+router.post('/images/findById', function(req, res, next){
+    "use strict";
+    var data = req.body;
+    var findSql = "select * from f_images where id = ?";
+    var values = [];
+    values.push(data.id);
+    db.findByCondition(findSql, values, function(result){
+        res.json(result);
+    })
+});
+
 router.post('/images/detail/:id', function(req, res, next){
     "use strict";
-    var id = req.search.href.id;
+    var id = req.params.id;
+    console.log(req);
     var values = [];
     values.push(id);
     var detailSql = 'select * from f_images where id = ?';
@@ -157,7 +169,6 @@ router.post('/images/update',function(req, res, next){
     values.push(update_name);
     values.push(data.id);
     db.update(updateSql, values, function(result){
-        console.log(result);
         res.json(result);
     })
 });

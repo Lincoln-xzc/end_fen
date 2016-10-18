@@ -365,6 +365,7 @@
     <file url="file://$PROJECT_DIR$/public/stylesheets/timeline.css" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/stylesheets/timepicker.css" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/stylesheets/uniform.default.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/routes/List.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/routes/article.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/routes/images.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/routes/main.js" charset="UTF-8" />
@@ -373,6 +374,7 @@
     <file url="file://$PROJECT_DIR$/views/addMain.ejs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/views/addUser.ejs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/views/footer.ejs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/list.ejs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/views/listArticle.ejs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/views/listImage.ejs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/views/listMain.ejs" charset="UTF-8" />
