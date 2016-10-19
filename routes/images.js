@@ -169,7 +169,7 @@ router.post('/images/update',function(req, res, next){
     values.push(update_name);
     values.push(data.id);
     db.update(updateSql, values, function(result){
-        res.json(result);
+        res.redirect('/api/images/listImage');
     })
 });
 
