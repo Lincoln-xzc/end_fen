@@ -64,7 +64,7 @@
                         <td><%=Articles[i].create_name%></td>
                         <td>
                             <a type="button" class="btn red" onclick="deleteArticle('<%=Articles[i].id%>')">删除</a>
-                            <button type="button" class="btn blue" data-toggle="modal" data-target="#myModal" onclick="updateArticle('<%=JSON.stringify(Articles[i])%>')">更新</button>
+                            <button type="button" class="btn blue" data-toggle="modal" data-target="#myModal" onclick="updateArticle('<%=Articles[i].id%>')">更新</button>
                         </td>
                     </tr>
                     <%}%>
@@ -134,16 +134,21 @@
             }
         })
     }
-    function updateArticle(obj){
-        var Article = JSON.parse(obj);
-        $.post('http://localhost:3000/api/images/detail/'+Article.imageId).success(function(response){
-            $("#name").text( response.data[0].name);
-            $("#imageId").attr('src', 'http://localhost:3000/api/images?path='+response.data[0].url);
+    function updateArticle(id){
+        $.post('http://localhost:3000/api/list/findById/'+id).success(function(response){
+            if(response.success){
+                var Article = response.data[0];
+                console.log(response);
+                $("#name").text(Article.name);
+                $("#imageId").attr('src', 'http://localhost:3000/api/images?path='+Article.url);
+                $("#id").val(Article.id);
+                $("#title").val(Article.title);
+                var ue = UE.getEditor('container');
+                ue.setContent(Article.content);
+            }
+
         })
-        $("#id").val(Article.id);
-        $("#title").val(Article.title);
-        var ue = UE.getEditor('container');
-        ue.setContent(Article.content);
+
     }
 </script>
 <%include footer.ejs%>

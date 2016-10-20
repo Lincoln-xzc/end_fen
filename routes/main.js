@@ -74,7 +74,7 @@ router.post('/main/findByCondition', function(req, res, next){
     "use strict";
     var data = req.body;
     var values = [];
-    var findSql = "select f_contents.id,name, url, title, content, remark, tip from f_contents LEFT JOIN f_images ON f_contents.imageId = f_images.id where f_contents.remark = ? AND f_contents.tip = ?";
+    var findSql = "select f_contents.id,name, url, title, content, remark, tip, f_contents.update_time from f_contents LEFT JOIN f_images ON f_contents.imageId = f_images.id where f_contents.remark = ? AND f_contents.tip = ?";
     values.push(data.remark);
     values.push(data.tip);
     db.findByCondition(findSql, values, function(result){

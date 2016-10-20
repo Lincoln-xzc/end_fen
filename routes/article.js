@@ -20,7 +20,6 @@ router.get('/article/addArticle', function(req, res, next){
     var listSql = 'select * from f_images';
     db.find(listSql, function(result){
         //res.json(result)
-        console.log(result.data);
         res.render('addArticle', { title: '新增文字',Images: result.data });
     });
 });
