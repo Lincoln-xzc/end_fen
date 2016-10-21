@@ -4,10 +4,10 @@
 var express = require('express');
 var router = express.Router();
 var DB = require('../models/db.js');
-
-router.get('/main', function(req, res, next){
+var db = new DB();
+router.get('/main/addMain', function(req, res, next){
     "use strict";
-   res.send('main');
+   res.render('addMain', {'title':'内容列表'});
 });
 
 router.post('/main/add', function(req, res, next){
@@ -51,11 +51,12 @@ router.post('/main/update', function(req, res, next){
         res.json(result);
     })
 });
-router.post('/main/list', function(req, res, next){
+router.get('/main/listMain', function(req, res, next){
     "use strict";
     var listSql = 'select * from f_main';
     db.find(listSql, function(result){
-        res.json(result);
+       // res.json(result);
+        res.render('listMain',{'title':'图文设置','result': result})
     })
 });
 router.post('/main/detail/:id', function(req, res, next){
@@ -65,6 +66,18 @@ router.post('/main/detail/:id', function(req, res, next){
     var values =[];
     values.push(id);
     db.findByCondition(detailSql, values, function(result){
+        res.json(result);
+    })
+});
+
+router.post('/main/findByCondition', function(req, res, next){
+    "use strict";
+    var data = req.body;
+    var values = [];
+    var findSql = "select f_contents.id,name, url, title, content, remark, tip, f_contents.update_time from f_contents LEFT JOIN f_images ON f_contents.imageId = f_images.id where f_contents.remark = ? AND f_contents.tip = ?";
+    values.push(data.remark);
+    values.push(data.tip);
+    db.findByCondition(findSql, values, function(result){
         res.json(result);
     })
 });

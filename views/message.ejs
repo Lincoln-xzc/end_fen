@@ -1,0 +1,82 @@
+<%include header.ejs%>
+
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <%include menu.ejs%>
+    <!-- BEGIN PAGE -->
+    <div class="page-content">
+        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <div id="portlet-config" class="modal hide">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"></button>
+                <h3>Widget Settings</h3>
+            </div>
+            <div class="modal-body">
+                Widget settings form goes here
+            </div>
+        </div>
+        <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <!-- BEGIN PAGE CONTAINER-->
+        <div class="container-fluid">
+            <!-- BEGIN PAGE HEADER-->
+            <div class="row-fluid">
+                <div class="span12">
+
+                    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                    <h3 class="page-title">
+                        list<small>statistics and more</small>
+                    </h3>
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="index.ejs">list</a>
+                            <i class="icon-angle-right"></i>
+                        </li>
+                        <li><a href="#">image_list</a></li>
+                    </ul>
+                    <!-- END PAGE TITLE & BREADCRUMB-->
+                </div>
+            </div>
+            <!-- END PAGE HEADER-->
+            <div id="dashboard">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>电话号码</th>
+                        <th>内容</th>
+                        <th>留言时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% for(var i=0;i< messages.length; i++){ %>
+                    <tr>
+                        <td><%= i +1%></td>
+                        <td><%= messages[i].mobile%></td>
+                        <td><%= messages[i].content%>></td>
+                        <td><%= messages[i].create_time%></td>
+                        <td>
+                            <button class="btn red" onclick="deleteMessage('<%=messages[i].id%>')">删除</button>
+                        </td>
+                    </tr>
+                    <%}%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- END PAGE CONTAINER-->
+    </div>
+    <!-- END PAGE -->
+</div>
+<script type="text/javascript">
+    function deleteMessage(id){
+        $.post('http://localhost:3000/api/message/delete/'+id).success(function(response){
+            layer.msg('删除成功');
+            window.location.reload();
+        }).error(function(err){
+            layer.msg('删除失败');
+        });
+    }
+</script>
+<%include footer.ejs%>

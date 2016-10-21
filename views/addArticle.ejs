@@ -1,0 +1,93 @@
+<%include header.ejs%>
+
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <%include menu.ejs%>
+    <!-- BEGIN PAGE -->
+    <div class="page-content">
+        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <div id="portlet-config" class="modal hide">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"></button>
+                <h3>Widget Settings</h3>
+            </div>
+            <div class="modal-body">
+                Widget settings form goes here
+            </div>
+        </div>
+        <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <!-- BEGIN PAGE CONTAINER-->
+        <div class="container-fluid">
+            <!-- BEGIN PAGE HEADER-->
+            <div class="row-fluid">
+                <div class="span12">
+
+                    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                    <h3 class="page-title">
+                        内容管理<small>statistics and more</small>
+                    </h3>
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="index.ejs">新增文字</a>
+                            <i class="icon-angle-right"></i>
+                        </li>
+                        <li><a href="#">add-fonts</a></li>
+                    </ul>
+                    <!-- END PAGE TITLE & BREADCRUMB-->
+                </div>
+            </div>
+            <!-- END PAGE HEADER-->
+            <div id="dashboard">
+                <form class="form-inline" action="/api/article/add" method="post">
+                    <div class="form-group" style="margin-bottom:20px;">
+                        <label>名称</label>
+                        <select class="form-control" onchange="getImageId(this.options[this.options.selectedIndex].value)" name="imageId" id="selectImg">
+                            <% for(var i = 0; i < Images.length; i++){%>
+                                <option value="<%=Images[i].id%>"><%=Images[i].name%></option>
+                            <%}%>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label>图片</label>
+                        <img  alt="photo" id="imageId" style="width: 100px;height: 100px;border: 2px solid #bbb;" />
+                    </div>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label class="">标题</label>
+                        <input type="text" class="form-control" name="title" placeholder="请输入内容标题" />
+                    </div>
+                    <div class="form-group" style="height: 100%;">
+                        <script id="container" name="content" type="text/plain">
+                        </script>
+                    </div>
+                    <div class="form-group" style="margin-top: 10px;">
+                        <select class="form-control" name="remark">
+                            <option value="home">首页管理</option>
+                            <option value="introduction">企业实力</option>
+                            <option value="center">产品中心</option>
+                            <option value="cultural">企业动态</option>
+                            <option value="product">生产流程</option>
+                        </select>
+                    </div>
+                    <button class="btn blue" type="submit" style="margin-top: 10px;">提交</button>
+                </form>
+
+            </div>
+        </div>
+        <!-- END PAGE CONTAINER-->
+    </div>
+    <!-- END PAGE -->
+</div>
+<script type="text/javascript">
+    $("#eduil_iframeholder").css("height",'260px');
+    function getImageId (id){
+        $.post('http://localhost:3000/api/images/findById',{'id':id}).success(function(response){
+            var url = response.data[0].url;
+            $("#imageId").attr('src',"http://localhost:3000/api/images?path="+url);
+        }).error(function(err){
+            console.log(err);
+        })
+    }
+</script>
+<%include footer.ejs%>

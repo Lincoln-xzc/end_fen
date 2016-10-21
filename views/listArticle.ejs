@@ -1,0 +1,154 @@
+<%include header.ejs%>
+
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <%include menu.ejs%>
+    <!-- BEGIN PAGE -->
+    <div class="page-content">
+        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <div id="portlet-config" class="modal hide">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"></button>
+                <h3>Widget Settings</h3>
+            </div>
+            <div class="modal-body">
+                Widget settings form goes here
+            </div>
+        </div>
+        <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <!-- BEGIN PAGE CONTAINER-->
+        <div class="container-fluid">
+            <!-- BEGIN PAGE HEADER-->
+            <div class="row-fluid">
+                <div class="span12">
+
+                    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                    <h3 class="page-title">
+                        内容管理<small>statistics and more</small>
+                    </h3>
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="index.ejs">内容列表</a>
+                            <i class="icon-angle-right"></i>
+                        </li>
+                        <li><a href="#">fonts</a></li>
+                    </ul>
+                    <!-- END PAGE TITLE & BREADCRUMB-->
+                </div>
+            </div>
+            <!-- END PAGE HEADER-->
+            <div id="dashboard">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>标题</th>
+                        <th style="text-align: center;">内容</th>
+                        <th>标识</th>
+                        <th>创建时间</th>
+                        <th>创建人</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <%for(var i=0; i< Articles.length; i++){ %>
+                    <tr>
+                        <td><%= i%></td>
+                        <td><%=Articles[i].title%></td>
+                        <td style="width: 35%;"><%=Articles[i].content%></td>
+                        <td><%=Articles[i].remark %></td>
+                        <td><%=Articles[i].create_time%></td>
+                        <td><%=Articles[i].create_name%></td>
+                        <td>
+                            <a type="button" class="btn red" onclick="deleteArticle('<%=Articles[i].id%>')">删除</a>
+                            <button type="button" class="btn blue" data-toggle="modal" data-target="#myModal" onclick="updateArticle('<%=Articles[i].id%>')">更新</button>
+                        </td>
+                    </tr>
+                    <%}%>
+                    </tbody>
+                </table>
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">更新图文信息</h4>
+                            </div>
+                            <form class="form-inline" action="/api/article/update" method="post">
+                                <div class="modal-body">
+                                    <div class="form-group" hidden>
+                                        <input type="text" name="id" id="id">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom:20px;">
+                                        <label>名称</label>
+                                        <span id="name"></span>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 20px;">
+                                        <label>图片</label>
+                                        <img  alt="photo" id="imageId" style="width: 100px;height: 100px;border: 2px solid #bbb;">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 20px;">
+                                        <label class="">标题</label>
+                                        <input type="text" class="form-control" name="title" id="title" placeholder="请输入内容标题">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 20px;">
+                                        <label class="">标记</label>
+                                        <select class="form-control" name="remark" id="remark">
+                                            <option value="home">首页管理</option>
+                                            <option value="introduction">企业实力</option>
+                                            <option value="center">产品中心</option>
+                                            <option value="cultural">企业动态</option>
+                                            <option value="product">生产流程</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="height: 100%;">
+                                        <script id="container" name="content" type="text/plain">
+
+                                        </script>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button class="btn blue" type="submit">提交</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTAINER-->
+    </div>
+    <!-- END PAGE -->
+</div>
+<script type="text/javascript">
+    function deleteArticle(id){
+        $.post('http://localhost:3000/api/article/delete/'+id).success(function(response){
+            if(response.success){
+                layer.msg('删除成功');
+                window.location.reload();
+            } else {
+                layer.msg('删除失败');
+            }
+        })
+    }
+    function updateArticle(id){
+        $.post('http://localhost:3000/api/list/findById/'+id).success(function(response){
+            if(response.success){
+                var Article = response.data[0];
+                console.log(response);
+                $("#name").text(Article.name);
+                $("#imageId").attr('src', 'http://localhost:3000/api/images?path='+Article.url);
+                $("#id").val(Article.id);
+                $("#title").val(Article.title);
+                var ue = UE.getEditor('container');
+                ue.setContent(Article.content);
+            }
+
+        })
+
+    }
+</script>
+<%include footer.ejs%>

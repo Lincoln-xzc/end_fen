@@ -1,0 +1,141 @@
+<%include header.ejs%>
+
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <%include menu.ejs%>
+    <!-- BEGIN PAGE -->
+    <div class="page-content">
+        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <div id="portlet-config" class="modal hide">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"></button>
+                <h3>Widget Settings</h3>
+            </div>
+            <div class="modal-body">
+                Widget settings form goes here
+            </div>
+        </div>
+        <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <!-- BEGIN PAGE CONTAINER-->
+        <div class="container-fluid">
+            <!-- BEGIN PAGE HEADER-->
+            <div class="row-fluid">
+                <div class="span12">
+
+                    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                    <h3 class="page-title">
+                       图片管理 <small>statistics and more</small>
+                    </h3>
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="index.ejs">图片列表</a>
+                            <i class="icon-angle-right"></i>
+                        </li>
+                        <li><a href="#">image_list</a></li>
+                    </ul>
+                    <!-- END PAGE TITLE & BREADCRUMB-->
+                </div>
+            </div>
+            <!-- END PAGE HEADER-->
+            <div id="dashboard">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>图片</th>
+                        <th>图片名</th>
+                        <th>类型</th>
+                        <th>大小</th>
+                        <th>上传时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <%for(var i=0; i< Images.length; i++){ %>
+                    <tr>
+                        <td><%= i%></td>
+                        <td><img src="http://localhost:3000/api/images?path=<%=Images[i].url%>" alt="photo" style="width: 60px;height: 40px;"></td>
+                        <td><%=Images[i].name%></td>
+                        <td><%=Images[i].type%></td>
+                        <td><%=Images[i].size%></td>
+                        <td><%=Images[i].upload_time%></td>
+                        <td>
+                            <a type="button" class="btn red" onclick="deleteImage('<%=Images[i].id%>')">删除</a>
+                            <button type="button" class="btn blue" data-toggle="modal" data-target="#myModal" onclick="updateImage('<%=Images[i].id%>')">更新</button>
+                        </td>
+                    </tr>
+                    <%}%>
+                    </tbody>
+                </table>
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">更新图文信息</h4>
+                            </div>
+                            <form class="form-inline" action="/api/images/update" method="post">
+                                <div class="modal-body">
+                                    <div class="form-group" hidden>
+                                        <input type="text" name="id" id="id">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom:20px;">
+                                        <label>名称</label>
+                                        <input type="text" class="form-control" name="name" id="name"/>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 20px;">
+                                        <label>图片</label>
+                                        <img  alt="photo" id="imageId" style="width: 100px;height: 100px;border: 2px solid #bbb;">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 20px;">
+                                        <label class="">类型</label>
+                                        <input type="text" class="form-control" name="type" id="type" readonly/>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 20px;">
+                                        <label class="">大小</label>
+                                        <input type="text" class="form-control" name="size" id="size" readonly/>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button class="btn blue" type="submit">提交</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTAINER-->
+    </div>
+    <!-- END PAGE -->
+</div>
+<script type="text/javascript">
+    function deleteImage(id){
+        $.post('http://localhost:3000/api/images/delete/'+id).success(function(response){
+            if(response.success){
+                layer.msg('删除成功');
+                window.location.reload();
+            } else {
+                layer.msg('删除失败');
+            }
+        })
+    }
+    function updateImage(id){
+        $.post('http://localhost:3000/api/images/detail/'+id).success(function(response){
+            if(response.success){
+                var image = response.data[0];
+                $("#id").val(image.id);
+                $("#name").val(image.name);
+                $("#imageId").attr('src','http://localhost:3000/api/images?path='+image.url);
+                $("#type").val(image.type);
+                $("#size").val(image.size);
+            } else {
+                layer.msg('更新出错');
+            }
+        })
+    }
+</script>
+<%include footer.ejs%>
